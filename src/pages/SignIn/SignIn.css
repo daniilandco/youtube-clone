@@ -1,0 +1,32 @@
+.buttonContainerWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonContainer {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button {
+    width: 50% !important;
+    background-color: red !important;
+}
+
+.logo {
+    background-image: url('../../images/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    padding: 0px;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 150px;
+}
