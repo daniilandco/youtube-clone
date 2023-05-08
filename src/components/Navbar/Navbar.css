@@ -1,0 +1,19 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: black;
+    top: 0;
+    justify-content: space-between;
+    padding: 2px;
+}
+
+.logoLink {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.logoImg {
+    height: 45px;
+}
