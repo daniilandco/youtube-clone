@@ -6,12 +6,12 @@ import SearchBar from '../SearchBar/SearchBar'
 
 const Navbar = () => {
     return (
-        <div className="navbar">
+        <navbar className="navbar">
             <Link to="/feed" className="logoLink">
                 <img src={logo} alt="logo" className="logoImg"></img>
             </Link>
             <SearchBar />
-        </div>
+        </navbar>
     )
 }
 

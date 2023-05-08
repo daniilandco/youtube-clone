@@ -4,7 +4,7 @@ import './ChannelCard.css'
 
 const ChannelCard = ({ channel, marginTop }) => {
     return (
-        <div className="channelCard" style={{marginTop}}>
+        <div className="channelCard" style={{ marginTop }}>
             <Link to={`/channel/${channel?.id?.channelId}`}>
                 <div className="channelCardContent">
                     <img

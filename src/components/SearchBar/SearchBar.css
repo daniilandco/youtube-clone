@@ -1,28 +1,28 @@
 .searchBarContainer {
     width: 25vw;
-  }
-  
-  .form {
+}
+
+.form {
     display: flex;
     flex-direction: row;
-  }
-  .search-field {
+}
+.search-field {
     width: 100%;
     padding: 5px 35px 5px 10px;
     border: none;
     border-radius: 100px;
     outline: none;
-  }
-  
-  .search-button {
+}
+
+.search-button {
     background: transparent;
     border: none;
     outline: none;
     margin-left: -33px;
-  }
-  
-  .search-button img {
+}
+
+.search-button img {
     width: 20px;
     height: 20px;
     object-fit: cover;
-  }
+}

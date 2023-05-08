@@ -3,15 +3,9 @@ import { useDispatch } from 'react-redux'
 import './App.css'
 import { AuthContextProvider } from './context/AuthContext'
 import { setUser } from './features/userSlice'
-import Signin from './pages/SignIn/SignIn'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import {
-    SearchFeed,
-    Navbar,
-    Feed,
-    VideoDetail,
-    ChannelDetail
-} from './components'
+import { SearchFeed, Navbar } from './components'
+import { Feed, SignIn, ChannelDetail, VideoDetail } from './pages'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -31,7 +25,7 @@ const App = () => {
                 <Router>
                     <Navbar />
                     <Routes>
-                        <Route exact path="/" element={<Signin />} />
+                        <Route exact path="/" element={<SignIn />} />
                         <Route path="/feed" element={<Feed />} />
                         <Route path="/video/:id" element={<VideoDetail />} />
                         <Route

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Videos, ChannelCard } from '..'
+import { Videos, ChannelCard } from '../../components'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
 import './ChannelDetail.css'
 
@@ -23,7 +23,7 @@ const ChannelDetail = () => {
         <div className="channelDetailContainer">
             <div className="channelGradient" />
             <ChannelCard channel={channel} marginTop="-100px" />
-            <div className='channelVideosContainer'>
+            <div className="channelVideosContainer">
                 <Videos videos={videos} />
             </div>
         </div>
