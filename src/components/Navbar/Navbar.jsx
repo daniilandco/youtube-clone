@@ -7,7 +7,7 @@ import SearchBar from '../SearchBar/SearchBar'
 const Navbar = () => {
     return (
         <div className="navbar">
-            <Link to="/" className="logoLink">
+            <Link to="/feed" className="logoLink">
                 <img src={logo} alt="logo" className="logoImg"></img>
             </Link>
             <SearchBar />

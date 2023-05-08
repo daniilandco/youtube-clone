@@ -1,0 +1,18 @@
+.channelDetailContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.channelGradient {
+    background: linear-gradient(
+        90deg,
+        rgba(36, 31, 208, 1) 0%,
+        rgba(121, 24, 9, 1) 100%,
+        rgba(0, 212, 255, 1) 100%
+    );
+    height: 30%;
+    width: 100%;
+}

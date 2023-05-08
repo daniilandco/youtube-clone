@@ -13,6 +13,7 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
 
 export const logo = 'https://i.ibb.co/t3tfbHJ/social-06-512.webp';
+export const checkCircleIcon = 'https://i.ibb.co/RNS4rt0/success.png';
 
 export const categories = [
   { name: 'New', icon: <HomeIcon />, },

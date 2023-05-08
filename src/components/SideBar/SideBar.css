@@ -1,13 +1,10 @@
 .sideBar {
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    height: 80%;
+    height: 95%;
     width: 80%;
-}
-
-.sideBar::-webkit-scrollbar {
-    width: 0;
 }
 
 .category-btn {
@@ -15,10 +12,10 @@
     border-radius: 25px;
     border-color: black;
     border-width: 0px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .buttonIcon {

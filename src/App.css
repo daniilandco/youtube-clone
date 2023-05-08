@@ -5,6 +5,14 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
+
+*::-webkit-scrollbar {
+    width: 0;
+}
+
 button {
     cursor: pointer;
 }
@@ -13,4 +21,5 @@ button {
     overflow: hidden;
     width: 100vw;
     height: 100vh;
+    background-color: black;
 }
