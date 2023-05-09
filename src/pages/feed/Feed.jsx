@@ -26,9 +26,9 @@ const Feed = () => {
                 <p className="copyright">Copyright 2023 DaniilAndCo</p>
             </section>
             <section className="videosContainer">
-                <FeedTitle 
-                title={selectedCategory} 
-                caption={'videos'}
+                <FeedTitle
+                    title={selectedCategory}
+                    caption={'videos'}
                 />
                 <Videos videos={videos} />
             </section>

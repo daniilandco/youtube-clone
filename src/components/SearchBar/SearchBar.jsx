@@ -19,9 +19,9 @@ const SearchBar = () => {
 
     return (
         <section className="searchBarContainer">
-            <form 
-            className="form"
-            onSubmit={handleSubmit}
+            <form
+                className="form"
+                onSubmit={handleSubmit}
             >
                 <input
                     type="text"

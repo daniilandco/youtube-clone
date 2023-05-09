@@ -6,6 +6,7 @@ import { setUser } from './features/userSlice'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { SearchFeed, Navbar } from './components'
 import { Feed, SignIn, ChannelDetail, VideoDetail } from './pages'
+import './Media.css'
 
 const App = () => {
     const dispatch = useDispatch()

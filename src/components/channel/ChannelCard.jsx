@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
-import { checkCircleIcon, demoProfilePicture } from '../../utils/consts'
+import { demoProfilePicture } from '../../utils/consts'
+import CheckIcon from '../checkIcon/CheckIcon'
 import './ChannelCard.css'
 
 const ChannelCard = ({ channel, marginTop }) => {
     return (
-        <div className="channelCard" style={{ marginTop: marginTop }}>
+        <section className="channelCard" style={{ marginTop: marginTop }}>
             <Link to={`/channel/${channel?.id?.channelId}`}>
-                <div className="channelCardContent">
+                <section className="channelCardContent">
                     <img
                         className="channelImage"
                         src={
@@ -17,11 +18,7 @@ const ChannelCard = ({ channel, marginTop }) => {
                     />
                     <h3>
                         {channel?.snippet?.title}
-                        <img
-                            className="checkIcon"
-                            src={checkCircleIcon}
-                            alt="checked"
-                        />
+                        <CheckIcon />
                     </h3>
                     {channel?.statistics?.subscriberCount && (
                         <h4>
@@ -31,9 +28,9 @@ const ChannelCard = ({ channel, marginTop }) => {
                             Subscribers
                         </h4>
                     )}
-                </div>
+                </section>
             </Link>
-        </div>
+        </section>
     )
 }
 

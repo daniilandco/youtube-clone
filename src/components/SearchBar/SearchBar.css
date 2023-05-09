@@ -1,8 +1,11 @@
 .searchBarContainer {
-    width: 25vw;
+    width: 50%;
+    height: 60%;
+    margin-right: 10px;
 }
 
 .form {
+    height: 100%;
     display: flex;
     flex-direction: row;
 }

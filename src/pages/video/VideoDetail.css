@@ -1,0 +1,56 @@
+.videoDetailContainer {
+    height: 93%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.videoContainer {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.player {
+    margin-bottom: 5px;
+}
+
+.descriptionContainer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.videoName {
+    color: white;
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+.videoChannelLink {
+    color: white;
+    text-decoration: none;
+}
+
+.videoChannelLink  h5 {
+    padding-left: 5px;
+}
+
+.statisticsContainer {
+    display: flex;
+    align-items: center;
+}
+
+.statisticsContainer small {
+    color: white;
+    margin-right: 5px;
+}
+
+.relatedVideosContainer {
+    overflow-y: auto;
+    margin: 20px;
+}
+
+/* .channelVideoTitleContainer {
+    width: 50%;
+} */

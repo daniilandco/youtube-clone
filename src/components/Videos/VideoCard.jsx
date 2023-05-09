@@ -4,9 +4,9 @@ import {
     demoVideoUrl,
     demoVideoTitle,
     demoChannelUrl,
-    demoChannelTitle,
-    checkCircleIcon
+    demoChannelTitle
 } from '../../utils/consts'
+import CheckIcon from '../checkIcon/CheckIcon'
 import './VideoCard.css'
 
 const VideoCard = ({
@@ -47,7 +47,7 @@ const VideoCard = ({
                     className="channelLink"
                 >
                     <p>{snippet?.channelTitle || demoChannelTitle}</p>
-                    <img src={checkCircleIcon} alt="checked" />
+                    <CheckIcon />
                 </Link>
             </div>
         </div>

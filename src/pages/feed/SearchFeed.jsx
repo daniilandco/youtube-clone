@@ -19,10 +19,10 @@ const SearchFeed = () => {
 
     return (
         <main className="searchFeedContainer">
-            <FeedTitle 
-                title={'Search Results for:'} 
+            <FeedTitle
+                title={'Search Results for:'}
                 caption={query}
-               />
+            />
             <Videos videos={videos} />
         </main>
     )
