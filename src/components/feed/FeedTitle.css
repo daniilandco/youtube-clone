@@ -1,0 +1,15 @@
+.feedTitleContainer {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.feedTitle {
+    font-weight: bold;
+    color: white;
+    margin-right: 5px;
+}
+
+.feedCaption {
+    color: red;
+}

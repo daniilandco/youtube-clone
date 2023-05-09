@@ -20,15 +20,15 @@ const ChannelDetail = () => {
     }, [id])
 
     return (
-        <div className="channelDetailContainer">
-            <header className='channelHeader'>
-                <div className="channelGradient" />
+        <main className="channelDetailContainer">
+            <section className='channelHeader'>
+                <header className="channelGradient" />
                 <ChannelCard channel={channel} marginTop='-110px' />
-            </header>
-            <div className="channelVideosContainer">
+            </section>
+            <section className="channelVideosContainer">
                 <Videos videos={videos} />
-            </div>
-        </div>
+            </section>
+        </main>
     )
 }
 

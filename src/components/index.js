@@ -1,6 +1,6 @@
 export { default as Navbar } from './Navbar/Navbar'
 export { default as VideoDetail } from '../pages/video/VideoDetail'
-export { default as SearchFeed } from './SearchFeed'
+export { default as SearchFeed } from '../pages/feed/SearchFeed'
 export { default as SearchBar } from './SearchBar/SearchBar'
 export { default as SideBar } from './sideBar/SideBar'
 export { default as Videos } from './videos/Videos'

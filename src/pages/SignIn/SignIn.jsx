@@ -38,7 +38,7 @@ const Signin = () => {
     return (
         <div className="buttonContainerWrapper">
             <div className="buttonContainer">
-                <div className="logo"></div>
+                <div className="logo" />
                 <GoogleButton className="button" onClick={handleGoogleSignIn} />
             </div>
         </div>

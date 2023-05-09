@@ -23,21 +23,6 @@
     margin-bottom: 10px;
 }
 
-.categoryTitleContainer {
-    display: flex;
-    margin-top: 15px;
-}
-
-.categoryTitle {
-    font-weight: bold;
-    margin: 0 10px 10px 10px;
-    color: white;
-}
-
-.videosCaption {
-    color: red;
-}
-
 .videosContainer {
     overflow-y: auto;
     height: 90%;

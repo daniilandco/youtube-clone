@@ -33,7 +33,7 @@ const App = () => {
                             element={<ChannelDetail />}
                         />
                         <Route
-                            path="/search/:searchTerm"
+                            path="/search/:query"
                             element={<SearchFeed />}
                         />
                     </Routes>
