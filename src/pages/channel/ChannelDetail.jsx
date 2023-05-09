@@ -21,8 +21,10 @@ const ChannelDetail = () => {
 
     return (
         <div className="channelDetailContainer">
-            <div className="channelGradient" />
-            <ChannelCard channel={channel} marginTop="-100px" />
+            <header className='channelHeader'>
+                <div className="channelGradient" />
+                <ChannelCard channel={channel} marginTop='-110px' />
+            </header>
             <div className="channelVideosContainer">
                 <Videos videos={videos} />
             </div>
