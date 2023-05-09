@@ -14,6 +14,7 @@ import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
 
 export const logo = 'https://i.ibb.co/t3tfbHJ/social-06-512.webp';
 export const checkCircleIcon = 'https://i.ibb.co/RNS4rt0/success.png';
+export const magnifierIcon = 'https://i.ibb.co/t4m9mbQ/magnifying-glass.png'
 
 export const categories = [
   { name: 'New', icon: <HomeIcon />, },

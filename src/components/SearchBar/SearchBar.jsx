@@ -1,23 +1,40 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { magnifierIcon } from '../../utils/consts'
 import './SearchBar.css'
 
 const SearchBar = () => {
-    const [state, setState] = useState({})
+    const [query, setQuery] = useState('')
+    const navigate = useNavigate()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        if (query) {
+            navigate(`/search/${query}`)
+
+            setQuery('')
+        }
+    }
 
     return (
-        <div className="searchBarContainer">
-            <form className="form">
+        <section className="searchBarContainer">
+            <form 
+            className="form"
+            onSubmit={handleSubmit}
+            >
                 <input
                     type="text"
                     placeholder="Search..."
                     className="search-field"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
                 />
                 <button type="submit" className="search-button">
-                    <img src="https://i.ibb.co/t4m9mbQ/magnifying-glass.png" />
+                    <img src={magnifierIcon} />
                 </button>
             </form>
-        </div>
+        </section>
     )
 }
 

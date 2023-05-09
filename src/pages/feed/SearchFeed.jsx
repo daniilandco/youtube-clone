@@ -15,7 +15,7 @@ const SearchFeed = () => {
         fetchFromAPI(`search?part=snippet&q=${query}`).then((data) =>
             setVideos(data.items)
         )
-    }, [])
+    }, [query])
 
     return (
         <main className="searchFeedContainer">
