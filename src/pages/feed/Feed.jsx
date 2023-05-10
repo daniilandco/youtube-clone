@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Videos, SideBar } from '../../components'
 import FeedTitle from '../../components/feed/FeedTitle'
+import Loader from '../../components/loader/Loader'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
 import './Feed.css'
 
@@ -15,6 +16,10 @@ const Feed = () => {
             setVideos(data.items)
         )
     }, [selectedCategory])
+
+    if (!videos.length) {
+        return <Loader />
+    }
 
     return (
         <main className="feedContainer">

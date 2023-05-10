@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Videos, ChannelCard } from '../../components'
+import Loader from '../../components/loader/Loader'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
 import './ChannelDetail.css'
 
@@ -18,6 +19,10 @@ const ChannelDetail = () => {
             (data) => setVideos(data?.items)
         )
     }, [id])
+
+    if (!channel || !videos.length) {
+        return <Loader />
+    }
 
     return (
         <main className="channelDetailContainer">

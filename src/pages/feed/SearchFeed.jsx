@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Videos } from '../../components'
 import FeedTitle from '../../components/feed/FeedTitle'
+import Loader from '../../components/loader/Loader'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
 import './SearchFeed.css'
 
@@ -16,6 +17,10 @@ const SearchFeed = () => {
             setVideos(data.items)
         )
     }, [query])
+
+    if (!videos.length) {
+        return <Loader />
+    }
 
     return (
         <main className="searchFeedContainer">

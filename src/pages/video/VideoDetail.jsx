@@ -6,6 +6,7 @@ import './VideoDetail.css'
 import { Link } from 'react-router-dom'
 import CheckIcon from '../../components/checkIcon/CheckIcon'
 import { Videos } from '../../components'
+import Loader from '../../components/loader/Loader'
 
 const VideoDetail = () => {
     const [video, setVideo] = useState(null)
@@ -20,8 +21,8 @@ const VideoDetail = () => {
             .then((data) => setVideos(data?.items))
     }, [id])
 
-    if (!video?.snippet) {
-        return 'Loading...';
+    if (!video || !videos.length) {
+        return <Loader />
     }
 
     const {
@@ -34,6 +35,8 @@ const VideoDetail = () => {
                 <ReactPlayer
                     url={`https://www.youtube.com/watch?v=${id}`}
                     className='player'
+                    width='100%'
+                    height='70%'
                     controls />
                 <section className='descriptionContainer'>
                     <section className='channelVideoTitleContainer'>

@@ -25,5 +25,8 @@
         margin: 5px;
         width: fit-content;
     }
+    .relatedVideosContainer {
+        display: none;
+    }
 
 }
