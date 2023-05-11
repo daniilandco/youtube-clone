@@ -1,0 +1,30 @@
+.category-btn {
+    color: white;
+    border-radius: 25px;
+    border-width: 0px;
+    background-color: #3d3d3d;
+    transition: background-color 0.3s ease;
+}
+
+.buttonIcon {
+    margin-left: 10px;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.buttonTitle {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.category-btn:hover {
+    background: red !important;
+}
+
+.category-btn:hover .buttonIcon {
+    color: white !important;
+}
+
+.category-btn:hover .buttonTitle {
+    opacity: 1 !important;
+}

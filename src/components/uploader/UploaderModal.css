@@ -1,0 +1,111 @@
+.overlay {
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalContainer {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 8px;
+}
+
+.closeBtn {
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 5px;
+    transition: font-weight 0.3s ease;
+}
+
+.closeBtn:hover {
+    font-weight: bold;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.btnContainer {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.videoInfoSection input {
+    width: 70%;
+    height: 100%;
+    outline: none;
+    border: none;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.videoInfoSection label {
+    width: 30%;
+    height: 100%;
+    font-weight: bold;
+    padding: 5px;
+    border-right: 0.5px solid black;
+}
+
+.videoInfoSection {
+    background-color: white;
+    border: 0.5px solid black;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+
+.uploaderContainer {
+    background: white;
+    width: 100%;
+    padding: 50px 40px;
+    border-radius: 1%;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+        0 100px 80px rgba(0, 0, 0, 0.07);
+}
+
+.uploaderContainer input {
+    display: none;
+}
+
+.uploaderContainer label {
+    width: 100%;
+    height: 100%;
+    border: 3px red dashed;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: medium;
+    font-weight: bold;
+    color: red;
+}
+
+.file-properties {
+    margin-top: 5px;
+}
+
+.file-properties ul {
+    list-style: none;
+    text-align: center;
+}

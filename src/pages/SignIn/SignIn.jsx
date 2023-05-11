@@ -4,10 +4,12 @@ import { useDispatch } from 'react-redux'
 import { setUser } from '../../features/userSlice'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 import './SignIn.css'
+import { useNavigate } from 'react-router'
 
 const Signin = () => {
     const { googleSignIn } = UserAuth()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleGoogleSignIn = async () => {
         try {
@@ -30,6 +32,7 @@ const Signin = () => {
 
             dispatch(setUser(newUser))
             localStorage.setItem('user', JSON.stringify(newUser))
+            navigate('/feed')
         } catch (error) {
             console.log(error)
         }

@@ -22,8 +22,11 @@
         display: none;
     }
     .category-btn {
-        margin: 5px;
-        width: fit-content;
+        margin: 5px !important;
+        width: fit-content !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .relatedVideosContainer {
         display: none;

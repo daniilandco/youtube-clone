@@ -6,27 +6,3 @@
     height: 95%;
     width: 80%;
 }
-
-.category-btn {
-    color: white;
-    border-radius: 25px;
-    border-width: 0px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    transition: background-color 0.3s ease;
-}
-
-.buttonIcon {
-    margin-left: 10px;
-    margin-right: 15px;
-    transition: color 0.3s ease;
-}
-
-.category-btn:hover {
-    background: red !important;
-}
-
-.category-btn:hover .buttonIcon {
-    color: white !important;
-}
