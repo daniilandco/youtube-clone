@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { storage } from "../../app/firebase"
-import { ref, uploadBytes } from "@firebase/storage"
+import { getDownloadURL, ref, uploadBytes } from "@firebase/storage"
 import useDragAndDrop from '../../hooks/useDragAndDrop'
 import './UploaderModal.css'
 import Button from '../button/Button'
 import { doc, getDoc, getFirestore, setDoc } from '@firebase/firestore'
 import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
 import Loader from '../loader/Loader'
+import { selectUser } from '../../features/userSlice'
+import { useSelector } from 'react-redux'
 
 const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
 
@@ -22,6 +24,7 @@ const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
     const [file, setFile] = useState(null)
     const [videoTitle, setVideoTitle] = useState(null)
     const [uploading, setUploading] = useState(false)
+    const user = useSelector(selectUser)
 
     const onDrop = (e) => {
         e.preventDefault()
@@ -54,12 +57,7 @@ const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
         if (!file) return
         setUploading(true)
 
-        const currentUser = JSON.parse(localStorage.getItem('user'))
-
         const videoId = window.btoa(videoTitle)
-
-        const videoRef = ref(storage, `videos/${currentUser.id}/${videoId}`)
-        uploadBytes(videoRef, file)
 
         const newVideo = {
             snippet: {
@@ -69,26 +67,40 @@ const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
                     }
                 },
                 title: videoTitle,
-                channelId: currentUser.id,
-                channelTitle: currentUser.displayName
+                channelId: user.user.id,
+                channelTitle: user.user.displayName
             },
-            id: { videoId }
+            id: { videoId },
+            statistics: {
+                viewCount: '0',
+                likeCount: '0'
+            }
         }
 
-        generateVideoThumbnails(file, 1).then(async (thumbnails) => {
-            newVideo.snippet.thumbnails.medium.url = thumbnails[0]
 
-            const videoRef = doc(getFirestore(), 'videos', videoId)
-            const videoDoc = await getDoc(videoRef)
+        const videoRef = ref(storage, `videos/${user.user.id}/${videoId}`)
+        uploadBytes(videoRef, file).then(snapshot => {
+            getDownloadURL(videoRef).then(url => {
+                newVideo.url = url
 
-            if (!videoDoc.exists()) {
-                await setDoc(videoRef, newVideo)
-            }
+                generateVideoThumbnails(file, 1).then(async (thumbnails) => {
+                    newVideo.snippet.thumbnails.medium.url = thumbnails[0]
 
-            onVideoUploaded(newVideo)
-            setUploading(false)
-            onModalClose()
+                    const videoRef = doc(getFirestore(), 'videos', videoId)
+                    const videoDoc = await getDoc(videoRef)
+
+                    if (!videoDoc.exists()) {
+                        await setDoc(videoRef, newVideo)
+                    }
+
+                    onVideoUploaded(newVideo)
+                    setUploading(false)
+                    onModalClose()
+                })
+            })
         })
+
+
     }
 
     if (uploading) {

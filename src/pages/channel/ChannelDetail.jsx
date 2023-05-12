@@ -1,9 +1,10 @@
-import { collection, getDocs, getFirestore, query, where } from '@firebase/firestore'
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Videos, ChannelCard } from '../../components'
 import Loader from '../../components/loader/Loader'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
+import { getUserById, getUserVideos } from '../../utils/fetchFromFirebase'
 import './ChannelDetail.css'
 
 const ChannelDetail = () => {
@@ -12,47 +13,39 @@ const ChannelDetail = () => {
     const { id } = useParams()
 
     useEffect(() => {
-        fetchFromAPI(`channels?part=snippet&id=${id}`).then((data) =>
-            setChannel(data?.items[0])
-        )
-
-        const usersRef = collection(getFirestore(), 'users')
-        let q = query(usersRef, where('id', '==', id))
-        getDocs(q).then(snapshot => {
-            const user = snapshot[0]?.data()
-            if (user) {
-                // setVideos(res)
-            }
-        })
-
-        const currentUser = JSON.parse(localStorage.getItem('user'))
-        setChannel({
-            snippet: {
-                thumbnails: {
-                    medium: {
-                        url: currentUser.photo
+        getUserById(id).then(res => {
+            console.log(res)
+            if (res) {
+                setChannel({
+                    id: { channelId: id },
+                    snippet: {
+                        thumbnails: {
+                            medium: {
+                                url: res.photo
+                            }
+                        },
+                        title: res.displayName
+                    },
+                    statistics: {
+                        subscriberCount: '0'
                     }
-                },
-                title: currentUser.displayName
-            },
-            statistics: {
-                subscriberCount: '0'
+                })
+            } else {
+                fetchFromAPI(`channels?part=snippet&id=${id}`).then(data =>
+                    setChannel(data?.items[0])
+                )
             }
         })
 
-        const videosRef = collection(getFirestore(), 'videos')
-        q = query(videosRef, where('snippet.channelId', '==', id))
-        getDocs(q).then(snapshot => {
-            const res = []
-            snapshot.forEach((doc) => {
-                res.push(doc.data())
-            })
-            setVideos(res)
+        getUserVideos(id).then(res => {
+            if (res && res.length) {
+                setVideos(res)
+            } else {
+                fetchFromAPI(`search?channelId=${id}&part=snippet&order=date&type=video`).then(
+                    (data) => setVideos(data?.items)
+                )
+            }
         })
-
-        // fetchFromAPI(`search?channelId=${id}&part=snippet&order=date&type=video`).then(
-        //     (data) => setVideos(data?.items)
-        // )
     }, [id])
 
     if (!channel || !videos.length) {

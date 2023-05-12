@@ -31,6 +31,7 @@ const Navbar = () => {
                     navigate('/')
                 }}
                 height='70%'
+                margin='0 10px 0 0'
             />
         </nav>
     )

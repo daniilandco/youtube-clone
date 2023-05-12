@@ -6,6 +6,7 @@ import Loader from "../../components/loader/Loader"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import { selectUser } from "../../features/userSlice"
+import { getUserVideos } from "../../utils/fetchFromFirebase"
 
 const MyVideos = () => {
 
@@ -21,13 +22,7 @@ const MyVideos = () => {
             return
         }
         setLoading(true)
-        const citiesRef = collection(getFirestore(), 'videos')
-        const q = query(citiesRef, where('snippet.channelId', '==', user.user.id))
-        getDocs(q).then(snapshot => {
-            const res = []
-            snapshot.forEach((doc) => {
-                res.push(doc.data())
-            })
+        getUserVideos(user.user.id).then(res => {
             setMyVideos(res)
             setLoading(false)
         })
@@ -38,10 +33,11 @@ const MyVideos = () => {
     }
 
     return (
-        <main>
+        <main className='myVideosContainer'>
             <Button
                 title='Upload Video'
                 height='30px'
+                margin='20px'
                 onClick={() => setOpenModal(true)}
             />
             <Videos videos={myVideos} />

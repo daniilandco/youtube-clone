@@ -9,6 +9,7 @@ import { Videos } from '../../components'
 import Loader from '../../components/loader/Loader'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../features/userSlice'
+import { getVideoById } from '../../utils/fetchFromFirebase'
 
 const VideoDetail = () => {
     const [video, setVideo] = useState(null)
@@ -24,14 +25,20 @@ const VideoDetail = () => {
     }, [])
 
     useEffect(() => {
-        fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
-            .then((data) => setVideo(data?.items[0]))
-
-        fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
-            .then((data) => setVideos(data?.items))
+        getVideoById(id).then(res => {
+            if (res) {
+                res.youtube = false
+                setVideo(res)
+            } else {
+                fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
+                    .then((data) => setVideo(data?.items[0]))
+                fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
+                    .then((data) => setVideos(data?.items))
+            }
+        })
     }, [id])
 
-    if (!video || !videos.length) {
+    if (!video) {
         return <Loader />
     }
 
@@ -43,7 +50,7 @@ const VideoDetail = () => {
         <main className='videoDetailContainer'>
             <section className='videoContainer'>
                 <ReactPlayer
-                    url={`https://www.youtube.com/watch?v=${id}`}
+                    url={video.url ? video.url : `https://www.youtube.com/watch?v=${id}`}
                     className='player'
                     width='100%'
                     height='70%'
