@@ -4,10 +4,13 @@ import { logo } from '../../utils/consts'
 import './Navbar.css'
 import SearchBar from '../SearchBar/SearchBar'
 import Button from '../button/Button'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../features/userSlice'
 
 const Navbar = () => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     return (
         <nav className="navbar">
@@ -18,6 +21,15 @@ const Navbar = () => {
             <Button
                 title={'My Videos'}
                 onClick={() => navigate('/my-videos')}
+                height='70%'
+            />
+            <Button
+                title={'Sign Out'}
+                onClick={() => {
+                    localStorage.clear()
+                    dispatch(setUser(null))
+                    navigate('/')
+                }}
                 height='70%'
             />
         </nav>

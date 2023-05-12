@@ -1,13 +1,24 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 import { Videos, SideBar } from '../../components'
 import FeedTitle from '../../components/feed/FeedTitle'
 import Loader from '../../components/loader/Loader'
+import { selectUser } from '../../features/userSlice'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
 import './Feed.css'
 
 const Feed = () => {
     const [selectedCategory, setSelectedCategory] = useState('New')
     const [videos, setVideos] = useState([])
+    const user = useSelector(selectUser)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!user.user) {
+            navigate('/')
+        }
+    }, [])
 
     useEffect(() => {
         setVideos([])
@@ -16,6 +27,8 @@ const Feed = () => {
             setVideos(data.items)
         )
     }, [selectedCategory])
+
+
 
     if (!videos.length) {
         return <Loader />

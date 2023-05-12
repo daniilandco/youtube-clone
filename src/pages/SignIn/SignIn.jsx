@@ -5,6 +5,7 @@ import { setUser } from '../../features/userSlice'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 import './SignIn.css'
 import { useNavigate } from 'react-router'
+import { useEffect } from 'react'
 
 const Signin = () => {
     const { googleSignIn } = UserAuth()
@@ -38,6 +39,11 @@ const Signin = () => {
         }
     }
 
+    useEffect(()=>{
+        if(localStorage.getItem('user')){
+            navigate('feed');
+        }
+    },[])
     return (
         <div className="buttonContainerWrapper">
             <div className="buttonContainer">

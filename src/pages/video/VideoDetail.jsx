@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import ReactPlayer from 'react-player'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
 import './VideoDetail.css'
@@ -7,11 +7,21 @@ import { Link } from 'react-router-dom'
 import CheckIcon from '../../components/checkIcon/CheckIcon'
 import { Videos } from '../../components'
 import Loader from '../../components/loader/Loader'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../../features/userSlice'
 
 const VideoDetail = () => {
     const [video, setVideo] = useState(null)
     const [videos, setVideos] = useState([])
     const { id } = useParams()
+    const user = useSelector(selectUser)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!user.user) {
+            navigate('/')
+        }
+    }, [])
 
     useEffect(() => {
         fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
