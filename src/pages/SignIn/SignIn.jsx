@@ -39,18 +39,16 @@ const Signin = () => {
         }
     }
 
-    useEffect(()=>{
-        if(localStorage.getItem('user')){
+    useEffect(() => {
+        if (localStorage.getItem('user')) {
             navigate('feed');
         }
-    },[])
+    }, [])
     return (
-        <div className="buttonContainerWrapper">
-            <div className="buttonContainer">
-                <div className="logo" />
-                <GoogleButton className="button" onClick={handleGoogleSignIn} />
-            </div>
-        </div>
+        <section className="buttonContainer">
+            <div className="logo" />
+            <GoogleButton className="button" onClick={handleGoogleSignIn} />
+        </section>
     )
 }
 

@@ -1,15 +1,7 @@
-.buttonContainerWrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-}
-
 .buttonContainer {
-    width: 50%;
+    background-color: white;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -17,7 +9,7 @@
 }
 
 .button {
-    width: 50% !important;
+    width: 25% !important;
     background-color: red !important;
 }
 

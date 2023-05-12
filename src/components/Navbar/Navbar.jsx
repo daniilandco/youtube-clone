@@ -19,12 +19,12 @@ const Navbar = () => {
             </Link>
             <SearchBar />
             <Button
-                title={'My Videos'}
+                title='My Videos'
                 onClick={() => navigate('/my-videos')}
                 height='70%'
             />
             <Button
-                title={'Sign Out'}
+                title='Sign Out'
                 onClick={() => {
                     localStorage.clear()
                     dispatch(setUser(null))
