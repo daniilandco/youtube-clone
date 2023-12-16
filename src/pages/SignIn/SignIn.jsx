@@ -1,14 +1,14 @@
-import { GoogleButton } from 'react-google-button'
-import { UserAuth } from '../../context/AuthContext'
-import { useDispatch } from 'react-redux'
-import { setUser } from '../../features/userSlice'
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
+import {GoogleButton} from 'react-google-button'
+import {UserAuth} from '../../context/AuthContext'
+import {useDispatch} from 'react-redux'
+import {setUser} from '../../features/userSlice'
+import {doc, getDoc, getFirestore, setDoc} from 'firebase/firestore'
 import './SignIn.css'
-import { useNavigate } from 'react-router'
-import { useEffect } from 'react'
+import {useNavigate} from 'react-router-dom'
+import {useEffect} from 'react'
 
-const Signin = () => {
-    const { googleSignIn } = UserAuth()
+const SignIn = () => {
+    const {googleSignIn} = UserAuth()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -17,7 +17,9 @@ const Signin = () => {
             const result = await googleSignIn()
             const user = result.user
 
-            const userRef = doc(getFirestore(), 'users', user.uid)
+            console.log(getFirestore())
+            const firestore = getFirestore();
+            const userRef = doc(firestore, 'users', user.uid);
             const userDoc = await getDoc(userRef)
 
             const newUser = {
@@ -46,10 +48,10 @@ const Signin = () => {
     }, [])
     return (
         <section className="buttonContainer">
-            <div className="logo" />
-            <GoogleButton className="button" onClick={handleGoogleSignIn} />
+            <div className="logo"/>
+            <GoogleButton className="button" onClick={handleGoogleSignIn}/>
         </section>
     )
 }
 
-export default Signin
+export default SignIn

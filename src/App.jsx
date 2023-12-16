@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import { AuthContextProvider } from './context/AuthContext'
 import { selectUser, setUser } from './features/userSlice'
-import { HashRouter as Router, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import { SearchFeed, Navbar } from './components'
 import { Feed, SignIn, ChannelDetail, VideoDetail, MyVideos } from './pages'
 import './Media.css'
@@ -26,14 +26,13 @@ const App = () => {
         if (savedUser) {
             const user = JSON.parse(savedUser)
             dispatch(setUser(user))
-            return
         }
     }, [dispatch])
 
     return (
         <div className="App">
             <AuthContextProvider>
-                <Router>
+                <HashRouter>
                     {isUser && <Navbar />}
                     <Routes>
                         <Route exact path="/" element={<SignIn />} />
@@ -54,7 +53,7 @@ const App = () => {
                             }
                         />
                     </Routes>
-                </Router>
+                </HashRouter>
             </AuthContextProvider>
         </div>
     )

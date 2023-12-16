@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router'
-import { Videos } from '../../components'
+import {useEffect, useState} from 'react'
+import {useSelector} from 'react-redux'
+import {useNavigate, useParams} from 'react-router-dom'
+import {Videos} from '../../components'
 import FeedTitle from '../../components/feed/FeedTitle'
 import Loader from '../../components/loader/Loader'
-import { selectUser } from '../../features/userSlice'
-import { fetchFromAPI } from '../../utils/fetchFromAPI'
+import {selectUser} from '../../features/userSlice'
+import {fetchFromAPI} from '../../utils/fetchFromAPI'
 import './SearchFeed.css'
 
 const SearchFeed = () => {
     const [videos, setVideos] = useState([])
-    const { query } = useParams()
+    const {query} = useParams()
     const user = useSelector(selectUser)
     const navigate = useNavigate()
 
@@ -29,7 +29,7 @@ const SearchFeed = () => {
     }, [query])
 
     if (!videos.length) {
-        return <Loader />
+        return <Loader/>
     }
 
     return (
@@ -38,7 +38,7 @@ const SearchFeed = () => {
                 title={'Search Results for:'}
                 caption={query}
             />
-            <Videos videos={videos} />
+            <Videos videos={videos}/>
         </main>
     )
 }

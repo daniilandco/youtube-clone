@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import {useEffect, useState} from 'react'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import ReactPlayer from 'react-player'
-import { fetchFromAPI } from '../../utils/fetchFromAPI'
+import {fetchFromAPI} from '../../utils/fetchFromAPI'
 import './VideoDetail.css'
-import { Link } from 'react-router-dom'
 import CheckIcon from '../../components/checkIcon/CheckIcon'
-import { Videos } from '../../components'
+import {Button, Videos} from '../../components'
 import Loader from '../../components/loader/Loader'
-import { useSelector } from 'react-redux'
-import { selectUser } from '../../features/userSlice'
-import { getVideoById } from '../../utils/fetchFromFirebase'
+import {useSelector} from 'react-redux'
+import {selectUser} from '../../features/userSlice'
+import {getVideoById} from '../../utils/fetchFromFirebase'
 
 const VideoDetail = () => {
     const [video, setVideo] = useState(null)
+    const [like, setLike] = useState(false)
     const [videos, setVideos] = useState([])
-    const { id } = useParams()
+    const {id} = useParams()
     const user = useSelector(selectUser)
     const navigate = useNavigate()
 
@@ -38,13 +38,23 @@ const VideoDetail = () => {
         })
     }, [id])
 
+    const onLike = (oldLikes) => {
+        setVideo({...video, statistics: {viewCount, likeCount: +oldLikes + (like ? -1 : 1)}})
+        setLike(prev => !prev)
+    }
+
+    const onTranslate = () => {
+
+    }
+
     if (!video) {
-        return <Loader />
+        return <Loader/>
     }
 
     const {
-        snippet: { title, channelId, channelTitle },
-        statistics: { viewCount, likeCount } } = video
+        snippet: {title, channelId, channelTitle},
+        statistics: {viewCount, likeCount}
+    } = video
 
     return (
         <main className='videoDetailContainer'>
@@ -54,7 +64,7 @@ const VideoDetail = () => {
                     className='player'
                     width='100%'
                     height='70%'
-                    controls />
+                    controls/>
                 <section className='descriptionContainer'>
                     <section className='channelVideoTitleContainer'>
                         <h4 className='videoName'>
@@ -65,22 +75,29 @@ const VideoDetail = () => {
                             className='videoChannelLink'>
                             <h5>
                                 {channelTitle}
-                                <CheckIcon />
+                                <CheckIcon/>
                             </h5>
                         </Link>
                     </section>
+                    <Button
+                        title='Translate Video'
+                        height='30px'
+                        margin='20px'
+                        onClick={onTranslate}
+                    />
                     <section className='statisticsContainer'>
+                        <small style={like ? {color: "blue"} : null} className='likesCaption'
+                               onClick={() => onLike(likeCount)}>
+                            {parseInt(likeCount).toLocaleString()} likes
+                        </small>
                         <small className='viewsCaption'>
                             {parseInt(viewCount).toLocaleString()} views
-                    </small>
-                        <small className='likesCaption'>
-                            {parseInt(likeCount).toLocaleString()} likes
-                    </small>
+                        </small>
                     </section>
                 </section>
             </section>
             <section className='relatedVideosContainer'>
-                <Videos videos={videos} direction='column' />
+                <Videos videos={videos} direction='column'/>
             </section>
         </main>
     )

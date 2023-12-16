@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 const useDragAndDrop = () => {
-    const [dragOver, setDragOver] = useState(false);
+    const [dragOver, setDragOver] = useState(false)
     const [fileDropError, setFileDropError] = useState('')
 
     const onDragOver = (e) => {

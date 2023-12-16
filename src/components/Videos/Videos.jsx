@@ -3,7 +3,7 @@ import { ChannelCard, VideoCard } from '..'
 const Videos = ({ videos, direction }) => {
 
     return (
-        <section className="videos" style={{ flexDirection: direction || 'row' }}>
+        <ul className="videos" style={{ flexDirection: direction || 'row' }}>
             {videos.map((item, index) =>
                 item.id.videoId ? (
                     <VideoCard key={index} video={item} />
@@ -11,7 +11,7 @@ const Videos = ({ videos, direction }) => {
                     <ChannelCard key={index} channel={item} />
                 )
             )}
-        </section>
+        </ul>
     )
 }
 

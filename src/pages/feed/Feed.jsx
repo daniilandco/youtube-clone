@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { Videos, SideBar } from '../../components'
 import FeedTitle from '../../components/feed/FeedTitle'
 import Loader from '../../components/loader/Loader'

@@ -22,6 +22,10 @@
     justify-content: space-between;
 }
 
+.channelVideoTitleContainer {
+    flex: 0.8
+}
+
 .videoName {
     color: white;
     font-weight: bold;
@@ -38,8 +42,11 @@
 }
 
 .statisticsContainer {
+    width: 15%;
+    font-size: 25px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .statisticsContainer small {
@@ -47,11 +54,23 @@
     margin-right: 5px;
 }
 
+.likesCaption {
+    background-color: dimgray;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+}
+
+.likesCaption:hover {
+    background-color: darkgray;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
 .relatedVideosContainer {
     overflow-y: auto;
     margin: 20px;
 }
 
-/* .channelVideoTitleContainer {
-    width: 50%;
-} */
+.viewsCaption {
+}

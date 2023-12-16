@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import { storage } from "../../app/firebase"
-import { getDownloadURL, ref, uploadBytes } from "@firebase/storage"
+import {useState} from 'react'
+import {storage} from "../../app/firebase"
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage"
 import useDragAndDrop from '../../hooks/useDragAndDrop'
 import './UploaderModal.css'
 import Button from '../button/Button'
-import { doc, getDoc, getFirestore, setDoc } from '@firebase/firestore'
-import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
+import {doc, getDoc, getFirestore, setDoc} from 'firebase/firestore'
+import {generateVideoThumbnails, generateVideoThumbnailViaUrl} from '@rajesh896/video-thumbnails-generator'
 import Loader from '../loader/Loader'
-import { selectUser } from '../../features/userSlice'
-import { useSelector } from 'react-redux'
+import {selectUser} from '../../features/userSlice'
+import {useSelector} from 'react-redux'
 
-const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
+const UploaderModal = ({open, onClose, onVideoUploaded}) => {
 
     const {
         dragOver,
@@ -62,18 +62,16 @@ const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
         const newVideo = {
             snippet: {
                 thumbnails: {
-                    medium: {
-
-                    }
+                    medium: {}
                 },
                 title: videoTitle,
                 channelId: user.user.id,
                 channelTitle: user.user.displayName
             },
-            id: { videoId },
+            id: {videoId},
             statistics: {
-                viewCount: '0',
-                likeCount: '0'
+                viewCount: 0,
+                likeCount: 0
             }
         }
 
@@ -104,7 +102,7 @@ const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
     }
 
     if (uploading) {
-        return <Loader />
+        return <Loader/>
     }
 
 
@@ -118,7 +116,7 @@ const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
                 className='modalContainer'>
                 <p className='closeBtn' onClick={onModalClose}>
                     X
-                    </p>
+                </p>
                 <div className='content'>
                     <section className="uploaderContainer">
                         <label
@@ -139,7 +137,7 @@ const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
                             type="file"
                             accept='video/mp4,video/x-m4v,video/*'
                             id="file"
-                            onChange={fileSelect} />
+                            onChange={fileSelect}/>
                     </section>
                     <section className='videoInfoSection'>
                         <label> Video Title: </label>
@@ -154,13 +152,13 @@ const UploaderModal = ({ open, onClose, onVideoUploaded }) => {
                             width='50%'
                             height='70%'
                             margin='10px'
-                            onClick={() => onVideoUpload()} />
+                            onClick={() => onVideoUpload()}/>
                         <Button
                             title='Discard'
                             width='50%'
                             height='70%'
                             margin='10px'
-                            onClick={() => onModalClose()} />
+                            onClick={() => onModalClose()}/>
                     </div>
                 </div>
             </div>
