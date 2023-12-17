@@ -1,5 +1,10 @@
-.videoDetailContainer {
+.videoDetailPageWrapper {
     height: 93%;
+    width: 100%
+}
+
+.videoDetailContainer {
+    height: 80%;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -72,5 +77,12 @@
     margin: 20px;
 }
 
-.viewsCaption {
+.commentsLabel {
+    color: white;
+    font-size: 40px;
+    margin: 15px;
+}
+
+.commentsContainer {
+    height: auto;
 }

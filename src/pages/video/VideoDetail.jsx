@@ -11,6 +11,8 @@ import {useSelector} from 'react-redux'
 import {selectUser} from '../../features/userSlice'
 import {getVideoById} from '../../utils/fetchFromFirebase'
 import Translate from '../../components/TranslateModal/Translate'
+import Comment from '../../components/Comment/Comment'
+import useNode from '../../hooks/useNode'
 
 const VideoDetail = () => {
     const [video, setVideo] = useState(null)
@@ -21,6 +23,27 @@ const VideoDetail = () => {
     const {id} = useParams()
     const user = useSelector(selectUser)
     const navigate = useNavigate()
+    const [commentsData, setCommentsData] = useState({
+        id: 1,
+        items: []
+    });
+    const {insertNode, editNode, deleteNode} = useNode();
+
+    const handleInsertNode = (folderId, item) => {
+        const finalStructure = insertNode(commentsData, folderId, item);
+        setCommentsData(finalStructure);
+    };
+
+    const handleEditNode = (folderId, value) => {
+        const finalStructure = editNode(commentsData, folderId, value);
+        setCommentsData(finalStructure);
+    };
+
+    const handleDeleteNode = (folderId) => {
+        const finalStructure = deleteNode(commentsData, folderId);
+        const temp = {...finalStructure};
+        setCommentsData(temp);
+    };
 
     useEffect(() => {
         if (!user.user) {
@@ -71,52 +94,63 @@ const VideoDetail = () => {
     setDoc(videoRef, {...video, statistics: {viewCount: +viewCount + 1, likeCount}})
 
     return (
-        <main className='videoDetailContainer'>
-            <section className='videoContainer'>
-                <ReactPlayer
-                    url={url ? url : `https://www.youtube.com/watch?v=${id}`}
-                    className='player'
-                    width='100%'
-                    height='70%'
-                    controls/>
-                <section className='descriptionContainer'>
-                    <section className='channelVideoTitleContainer'>
-                        <h4 className='videoName'>
-                            {title}
-                        </h4>
-                        <Link
-                            to={`/channel/${channelId}`}
-                            className='videoChannelLink'>
-                            <h5>
-                                {channelTitle}
-                                <CheckIcon/>
-                            </h5>
-                        </Link>
-                    </section>
-                    <Button
-                        title='Translate Video'
-                        height='30px'
-                        margin='20px'
-                        onClick={() => setOpenTranslate(true)}
-                    />
-                    <Translate open={openTranslate}
-                               onModalClose={() => setOpenTranslate(false)}
-                               setNewVideo={(newUrl) => setUrl(newUrl)}
-                               video={video}
-                    />
-                    <section className='statisticsContainer'>
-                        <small style={like ? {color: "#acf9ff"} : null} className='likesCaption'
-                               onClick={() => onLike(likeCount)}>
-                            {parseInt(likeCount).toLocaleString()} likes
-                        </small>
-                        <small className='viewsCaption'>
-                            {parseInt(viewCount).toLocaleString()} views
-                        </small>
+        <main className='videoDetailPageWrapper'>
+            <section className='videoDetailContainer'>
+                <section className='videoContainer'>
+                    <ReactPlayer
+                        url={url ? url : `https://www.youtube.com/watch?v=${id}`}
+                        className='player'
+                        width='100%'
+                        height='85%'
+                        controls/>
+                    <section className='descriptionContainer'>
+                        <section className='channelVideoTitleContainer'>
+                            <h4 className='videoName'>
+                                {title}
+                            </h4>
+                            <Link
+                                to={`/channel/${channelId}`}
+                                className='videoChannelLink'>
+                                <h5>
+                                    {channelTitle}
+                                    <CheckIcon/>
+                                </h5>
+                            </Link>
+                        </section>
+                        <Button
+                            title='Translate Video'
+                            height='30px'
+                            margin='20px'
+                            onClick={() => setOpenTranslate(true)}
+                        />
+                        <Translate open={openTranslate}
+                                   onModalClose={() => setOpenTranslate(false)}
+                                   setNewVideo={(newUrl) => setUrl(newUrl)}
+                                   video={video}
+                        />
+                        <section className='statisticsContainer'>
+                            <small style={like ? {color: "#acf9ff"} : null} className='likesCaption'
+                                   onClick={() => onLike(likeCount)}>
+                                {parseInt(likeCount).toLocaleString()} likes
+                            </small>
+                            <small className='viewsCaption'>
+                                {parseInt(viewCount).toLocaleString()} views
+                            </small>
+                        </section>
                     </section>
                 </section>
+                <section className='relatedVideosContainer'>
+                    <Videos videos={videos} direction='column'/>
+                </section>
             </section>
-            <section className='relatedVideosContainer'>
-                <Videos videos={videos} direction='column'/>
+            <section className="commentsContainer">
+                <label className="commentsLabel">Comments</label>
+                <Comment
+                    handleInsertNode={handleInsertNode}
+                    handleEditNode={handleEditNode}
+                    handleDeleteNode={handleDeleteNode}
+                    comment={commentsData}
+                />
             </section>
         </main>
     )
