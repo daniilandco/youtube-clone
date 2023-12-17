@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { logo } from '../../utils/consts'
+import {Link, useNavigate} from 'react-router-dom'
+import {logo} from '../../utils/consts'
 import './Navbar.css'
 import SearchBar from '../SearchBar/SearchBar'
 import Button from '../button/Button'
-import { useDispatch } from 'react-redux'
-import { setUser } from '../../features/userSlice'
+import {useDispatch} from 'react-redux'
+import {setUser} from '../../features/userSlice'
 import Report from "../Report/Report";
 
 const Navbar = () => {
@@ -17,9 +17,9 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <Link to="/feed" className="logoLink">
-                <img src={logo} alt="logo" />
+                <img src={logo} alt="logo"/>
             </Link>
-            <SearchBar />
+            <SearchBar/>
             <Button
                 title='My Videos'
                 onClick={() => navigate('/my-videos')}
@@ -30,7 +30,7 @@ const Navbar = () => {
                 onClick={() => setReportVisible(prev => !prev)}
                 height='70%'
             />
-            <Report modalVisible={reportVisible} setModalVisible={setReportVisible} />
+            <Report open={reportVisible} onModalClose={() => setReportVisible(false)}/>
             <Button
                 title='Sign Out'
                 onClick={() => {

@@ -9,6 +9,7 @@ import {generateVideoThumbnails, generateVideoThumbnailViaUrl} from '@rajesh896/
 import Loader from '../loader/Loader'
 import {selectUser} from '../../features/userSlice'
 import {useSelector} from 'react-redux'
+import Modal from '../Modal/Modal'
 
 const UploaderModal = ({open, onClose, onVideoUploaded}) => {
 
@@ -108,62 +109,51 @@ const UploaderModal = ({open, onClose, onVideoUploaded}) => {
 
     if (!open) return null;
     return (
-        <main onClick={onModalClose} className='overlay'>
-            <div
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-                className='modalContainer'>
-                <p className='closeBtn' onClick={onModalClose}>
-                    X
-                </p>
-                <div className='content'>
-                    <section className="uploaderContainer">
-                        <label
-                            htmlFor='file'
-                            onDragOver={onDragOver}
-                            onDragLeave={onDragLeave}
-                            onDrop={onDrop}
-                            style={{
-                                borderColor: dragOver ? 'yellowgreen' : '',
-                                color: dragOver ? 'yellowgreen' : ''
-                            }}>
-                            {!dragOver && fileDropError ?
-                                fileDropError : file ?
-                                    file.name : !dragOver ?
-                                        "Select Or Drop your File here..." : "Drop here..."}
-                        </label>
-                        <input
-                            type="file"
-                            accept='video/mp4,video/x-m4v,video/*'
-                            id="file"
-                            onChange={fileSelect}/>
-                    </section>
-                    <section className='videoInfoSection'>
-                        <label> Video Title: </label>
-                        <input
-                            maxLength='60'
-                            onChange={(e) => setVideoTitle(e.target.value)}
-                        />
-                    </section>
-                    <div className='btnContainer'>
-                        <Button
-                            title='Save Video'
-                            width='50%'
-                            height='70%'
-                            margin='10px'
-                            onClick={() => onVideoUpload()}/>
-                        <Button
-                            title='Discard'
-                            width='50%'
-                            height='70%'
-                            margin='10px'
-                            onClick={() => onModalClose()}/>
-                    </div>
-                </div>
+        <Modal open={open} onModalClose={onModalClose}>
+            <section className="uploaderContainer">
+                <label
+                    htmlFor='file'
+                    onDragOver={onDragOver}
+                    onDragLeave={onDragLeave}
+                    onDrop={onDrop}
+                    style={{
+                        borderColor: dragOver ? 'yellowgreen' : '',
+                        color: dragOver ? 'yellowgreen' : ''
+                    }}>
+                    {!dragOver && fileDropError ?
+                        fileDropError : file ?
+                            file.name : !dragOver ?
+                                "Select Or Drop your File here..." : "Drop here..."}
+                </label>
+                <input
+                    type="file"
+                    accept='video/mp4,video/x-m4v,video/*'
+                    id="file"
+                    onChange={fileSelect}/>
+            </section>
+            <section className='videoInfoSection'>
+                <label> Video Title: </label>
+                <input
+                    maxLength='60'
+                    onChange={(e) => setVideoTitle(e.target.value)}
+                />
+            </section>
+            <div className='btnContainer'>
+                <Button
+                    title='Save Video'
+                    width='50%'
+                    height='70%'
+                    margin='10px'
+                    onClick={() => onVideoUpload()}/>
+                <Button
+                    title='Discard'
+                    width='50%'
+                    height='70%'
+                    margin='10px'
+                    onClick={() => onModalClose()}/>
             </div>
-        </main>
-    );
+        </Modal>
+    )
 };
 
 export default UploaderModal

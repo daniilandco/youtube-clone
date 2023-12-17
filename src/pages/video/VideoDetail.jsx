@@ -3,18 +3,21 @@ import {Link, useNavigate, useParams} from 'react-router-dom'
 import ReactPlayer from 'react-player'
 import {fetchFromAPI} from '../../utils/fetchFromAPI'
 import './VideoDetail.css'
-import {doc, getFirestore, setDoc} from "firebase/firestore";
+import {doc, getFirestore, addDoc, collection, setDoc} from "firebase/firestore";
 import CheckIcon from '../../components/checkIcon/CheckIcon'
 import {Button, Videos} from '../../components'
 import Loader from '../../components/loader/Loader'
 import {useSelector} from 'react-redux'
 import {selectUser} from '../../features/userSlice'
 import {getVideoById} from '../../utils/fetchFromFirebase'
+import Translate from '../../components/TranslateModal/Translate'
 
 const VideoDetail = () => {
     const [video, setVideo] = useState(null)
     const [like, setLike] = useState(false)
     const [videos, setVideos] = useState([])
+    const [openTranslate, setOpenTranslate] = useState(false)
+    const [url, setUrl] = useState(null)
     const {id} = useParams()
     const user = useSelector(selectUser)
     const navigate = useNavigate()
@@ -23,13 +26,14 @@ const VideoDetail = () => {
         if (!user.user) {
             navigate('/')
         }
-    }, [])
+    }, [user.user])
 
     useEffect(() => {
         getVideoById(id).then(res => {
             if (res) {
                 res.youtube = false
                 setVideo(res)
+                setUrl(res.url)
             } else {
                 fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
                     .then((data) => setVideo(data?.items[0]))
@@ -42,10 +46,15 @@ const VideoDetail = () => {
     const onLike = (oldLikes) => {
         setVideo({...video, statistics: {viewCount, likeCount: +oldLikes + (like ? -1 : 1)}})
         setLike(prev => !prev)
-    }
 
-    const onTranslate = () => {
-
+        // const videoRef = doc(getFirestore(), 'videos', videoId)
+        // const userRef = doc(getFirestore(), 'users', user.user.id)
+        // const statistics = {
+        //     likedVideos: [videoRef],
+        //     time: Date.now(),
+        //     userRef
+        // }
+        // addDoc(collection(getFirestore(), 'statistics'), statistics);
     }
 
     if (!video) {
@@ -58,14 +67,14 @@ const VideoDetail = () => {
         statistics: {viewCount, likeCount}
     } = video
 
-    const docRef = doc(getFirestore(), 'videos', videoId)
-    setDoc(docRef, {...video, statistics: {viewCount: +viewCount + 1, likeCount}})
+    const videoRef = doc(getFirestore(), 'videos', videoId)
+    setDoc(videoRef, {...video, statistics: {viewCount: +viewCount + 1, likeCount}})
 
     return (
         <main className='videoDetailContainer'>
             <section className='videoContainer'>
                 <ReactPlayer
-                    url={video.url ? video.url : `https://www.youtube.com/watch?v=${id}`}
+                    url={url ? url : `https://www.youtube.com/watch?v=${id}`}
                     className='player'
                     width='100%'
                     height='70%'
@@ -88,10 +97,15 @@ const VideoDetail = () => {
                         title='Translate Video'
                         height='30px'
                         margin='20px'
-                        onClick={onTranslate}
+                        onClick={() => setOpenTranslate(true)}
+                    />
+                    <Translate open={openTranslate}
+                               onModalClose={() => setOpenTranslate(false)}
+                               setNewVideo={(newUrl) => setUrl(newUrl)}
+                               video={video}
                     />
                     <section className='statisticsContainer'>
-                        <small style={like ? {color: "blue"} : null} className='likesCaption'
+                        <small style={like ? {color: "#acf9ff"} : null} className='likesCaption'
                                onClick={() => onLike(likeCount)}>
                             {parseInt(likeCount).toLocaleString()} likes
                         </small>

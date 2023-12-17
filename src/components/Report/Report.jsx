@@ -4,8 +4,9 @@ import {addDoc, collection, doc, getFirestore} from "firebase/firestore";
 import {useSelector} from "react-redux";
 import {selectUser} from "../../features/userSlice";
 import {Button} from "../index";
+import Modal from '../Modal/Modal'
 
-const Report = ({modalVisible, setModalVisible}) => {
+const Report = ({open, onModalClose}) => {
     const textRef = useRef();
     const user = useSelector(selectUser);
 
@@ -24,34 +25,19 @@ const Report = ({modalVisible, setModalVisible}) => {
         onModalClose()
     }
 
-    const onModalClose = () => {
-        setModalVisible(false)
-    }
 
-
-    if (!modalVisible) return null;
+    if (!open) return null;
     return (
-        <main onClick={onModalClose} className='overlay'>
-            <div
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-                className='modalContainer'>
-                <p className='closeBtn' onClick={onModalClose}>
-                    X
-                </p>
-                <div className='content'>
-                    <h1>Report problem</h1>
-                    <textarea ref={textRef} placeholder="Describe problem" className="report-textarea"/>
-                    <Button
-                        title='Report'
-                        height='30px'
-                        margin='20px'
-                        onClick={handleSend}
-                    />
-                </div>
-            </div>
-        </main>
+        <Modal open={open} onModalClose={onModalClose}>
+            <h1>Report problem</h1>
+            <textarea ref={textRef} placeholder="Describe problem" className="report-textarea"/>
+            <Button
+                title='Report'
+                height='30px'
+                margin='20px'
+                onClick={handleSend}
+            />
+        </Modal>
     );
 };
 
