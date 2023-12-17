@@ -1,0 +1,8 @@
+.lang-selection {
+    margin-top: 15px;
+    width: 50%;
+    font-size: 50px;
+    appearance: none;
+    outline: none;
+    border-radius: 10px;
+}

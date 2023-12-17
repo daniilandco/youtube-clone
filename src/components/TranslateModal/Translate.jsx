@@ -6,6 +6,7 @@ import {translateVideo} from '../../utils/translationAPI'
 import Loader from "../loader/Loader";
 import {useSelector} from 'react-redux'
 import {selectUser} from '../../features/userSlice'
+import './Translate.css'
 
 const Translate = ({open, onModalClose, setNewVideo, video}) => {
     const [loading, setLoading] = useState(false)
@@ -46,14 +47,15 @@ const Translate = ({open, onModalClose, setNewVideo, video}) => {
     return (
         <Modal open={open} onModalClose={onModalClose}>
             <h1>Choose language translate video into</h1>
-            <select ref={langRef}>
+            <select ref={langRef} className="lang-selection">
                 <option value="en" selected>English</option>
                 <option value="fr">French</option>
                 <option value="esp">Spanish</option>
             </select>
             <Button
                 title='Translate'
-                height='30px'
+                height='40px'
+                width='150px'
                 margin='20px'
                 onClick={handleTranslate}
             />

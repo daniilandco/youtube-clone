@@ -6,7 +6,7 @@ const getTranslatedFile = async (url, lang) => {
 }
 
 export const translateVideo = async (url, lang, videoId, userId) => {
-    const videoRef = ref(storage, `videos/${userId}/${videoId}/${lang}`)
+    const videoRef = ref(storage, `videos/${userId}/${videoId + lang}`)
     const file = await getTranslatedFile(url, lang)
     await uploadBytes(videoRef, file)
     const translatedUrl = await getDownloadURL(videoRef)
