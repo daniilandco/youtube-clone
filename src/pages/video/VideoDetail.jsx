@@ -3,6 +3,7 @@ import {Link, useNavigate, useParams} from 'react-router-dom'
 import ReactPlayer from 'react-player'
 import {fetchFromAPI} from '../../utils/fetchFromAPI'
 import './VideoDetail.css'
+import {doc, getFirestore, setDoc} from "firebase/firestore";
 import CheckIcon from '../../components/checkIcon/CheckIcon'
 import {Button, Videos} from '../../components'
 import Loader from '../../components/loader/Loader'
@@ -52,9 +53,13 @@ const VideoDetail = () => {
     }
 
     const {
+        id: {videoId},
         snippet: {title, channelId, channelTitle},
         statistics: {viewCount, likeCount}
     } = video
+
+    // const docRef = doc(getFirestore(), 'videos', videoId)
+    // setDoc(docRef, {...video, viewCount: +viewCount + 1})
 
     return (
         <main className='videoDetailContainer'>

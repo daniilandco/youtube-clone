@@ -3,6 +3,7 @@ import React, {useRef} from "react";
 import {addDoc, collection, doc, getFirestore} from "firebase/firestore";
 import {useSelector} from "react-redux";
 import {selectUser} from "../../features/userSlice";
+import {Button} from "../index";
 
 const Report = ({modalVisible, setModalVisible}) => {
     const textRef = useRef();
@@ -42,9 +43,12 @@ const Report = ({modalVisible, setModalVisible}) => {
                 <div className='content'>
                     <h1>Report problem</h1>
                     <textarea ref={textRef} placeholder="Describe problem" className="report-textarea"/>
-                    <div className="button-wrapper">
-                        <button onClick={handleSend}>Report</button>
-                    </div>
+                    <Button
+                        title='Report'
+                        height='30px'
+                        margin='20px'
+                        onClick={handleSend}
+                    />
                 </div>
             </div>
         </main>

@@ -26,7 +26,7 @@ const Navbar = () => {
                 height='70%'
             />
             <Button
-                title='Report problem'
+                title='Report Problem'
                 onClick={() => setReportVisible(prev => !prev)}
                 height='70%'
             />

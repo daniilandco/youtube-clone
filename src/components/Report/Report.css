@@ -1,0 +1,13 @@
+.report-textarea {
+    margin-top: 20px;
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    resize: none;
+    padding: 5px;
+    outline: none;
+}
+
+.content {
+    align-items: center;
+}
