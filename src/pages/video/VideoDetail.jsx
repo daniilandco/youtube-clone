@@ -58,8 +58,8 @@ const VideoDetail = () => {
         statistics: {viewCount, likeCount}
     } = video
 
-    // const docRef = doc(getFirestore(), 'videos', videoId)
-    // setDoc(docRef, {...video, viewCount: +viewCount + 1})
+    const docRef = doc(getFirestore(), 'videos', videoId)
+    setDoc(docRef, {...video, statistics: {viewCount: +viewCount + 1, likeCount}})
 
     return (
         <main className='videoDetailContainer'>
