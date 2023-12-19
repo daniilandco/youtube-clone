@@ -9,6 +9,7 @@ const Comment = ({
                      handleEditNode,
                      handleDeleteNode,
                      comment,
+                     margin
                  }) => {
     const [input, setInput] = useState("");
     const [editMode, setEditMode] = useState(false);
@@ -26,6 +27,9 @@ const Comment = ({
     };
 
     const onAddComment = () => {
+        if (!input) {
+            return
+        }
         if (editMode) {
             handleEditNode(comment.id, inputRef?.current?.innerText);
         } else {
@@ -43,7 +47,7 @@ const Comment = ({
     };
 
     return (
-        <div>
+        <div style={{margin: margin}}>
             <div className={comment.id === 1 ? "inputContainer" : "commentContainer"}>
                 {comment.id === 1 ? (
                     <>

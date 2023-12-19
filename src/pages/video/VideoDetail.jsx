@@ -3,7 +3,10 @@ import {Link, useNavigate, useParams} from 'react-router-dom'
 import ReactPlayer from 'react-player'
 import {fetchFromAPI} from '../../utils/fetchFromAPI'
 import './VideoDetail.css'
-import {doc, getFirestore, addDoc, collection, setDoc} from "firebase/firestore";
+import {
+    doc, getFirestore, addDoc,
+    collection, setDoc, query, where, getDocs
+} from "firebase/firestore";
 import CheckIcon from '../../components/checkIcon/CheckIcon'
 import {Button, Videos} from '../../components'
 import Loader from '../../components/loader/Loader'
@@ -32,6 +35,7 @@ const VideoDetail = () => {
     const handleInsertNode = (folderId, item) => {
         const finalStructure = insertNode(commentsData, folderId, item);
         setCommentsData(finalStructure);
+        updateCommentsFirebase()
     };
 
     const handleEditNode = (folderId, value) => {
@@ -45,6 +49,39 @@ const VideoDetail = () => {
         setCommentsData(temp);
     };
 
+    const loadCommentsFirebase = () => {
+        const videoRef = doc(getFirestore(), 'videos', id)
+        const q = query(collection(getFirestore(), "comments"), where("videoRef", "==", videoRef));
+        getDocs(q).then(querySnapshot => {
+            let initialCommentsData = {
+                id: 1,
+                items: []
+            }
+            if (querySnapshot.empty) {
+                addDoc(collection(getFirestore(), 'comments'), {videoRef: videoRef, commentsData: commentsData});
+            }
+            Promise.all(querySnapshot.docs.map(async doc => {
+                    const data = doc.data()
+                    initialCommentsData = data.commentsData
+                }
+            )).then(res => setCommentsData(initialCommentsData))
+        });
+    }
+
+    const updateCommentsFirebase = async () => {
+        const videoRef = doc(getFirestore(), 'videos', id)
+        const q = query(collection(getFirestore(), "comments"), where("videoRef", "==", videoRef));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            const data = doc.data()
+            setDoc(doc.ref, {...data, commentsData: commentsData})
+        });
+    }
+
+    useEffect(() => {
+        loadCommentsFirebase()
+    }, []);
+
     useEffect(() => {
         if (!user.user) {
             navigate('/')
@@ -54,7 +91,6 @@ const VideoDetail = () => {
     useEffect(() => {
         getVideoById(id).then(res => {
             if (res) {
-                res.youtube = false
                 setVideo(res)
                 setUrl(res.url)
             } else {
@@ -90,8 +126,10 @@ const VideoDetail = () => {
         statistics: {viewCount, likeCount}
     } = video
 
-    const videoRef = doc(getFirestore(), 'videos', videoId)
-    setDoc(videoRef, {...video, statistics: {viewCount: +viewCount + 1, likeCount}})
+    if (videoId != undefined) {
+        const videoRef = doc(getFirestore(), 'videos', videoId)
+        setDoc(videoRef, {...video, statistics: {viewCount: +viewCount + 1, likeCount}})
+    }
 
     return (
         <main className='videoDetailPageWrapper'>
@@ -150,6 +188,7 @@ const VideoDetail = () => {
                     handleEditNode={handleEditNode}
                     handleDeleteNode={handleDeleteNode}
                     comment={commentsData}
+                    margin="20px"
                 />
             </section>
         </main>

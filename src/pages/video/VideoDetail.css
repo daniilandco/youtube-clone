@@ -60,6 +60,7 @@
 }
 
 .likesCaption {
+    padding: 5px;
     background-color: dimgray;
     border: none;
     border-radius: 3px;
